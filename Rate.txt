@@ -1,0 +1,23 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class RateLoader {
+
+    public static void loadExchangeRates() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("resources/exchangeRates.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split("=");
+                if (parts.length == 2) {
+                    String currency = parts[0].trim();
+                    double rate = Double.parseDouble(parts[1].trim());
+                    // Store or use the rate
+                    System.out.println(currency + " = " + rate);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading exchange rates: " + e.getMessage());
+        }
+    }
+}
